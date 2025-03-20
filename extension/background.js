@@ -1,3 +1,6 @@
+
+
+require('dotenv').config();
 // Add a listener for messages received by the background script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log("Received message in background script:", request);
@@ -66,3 +69,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         return true;
     }
 });
+
+

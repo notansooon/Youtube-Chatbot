@@ -1,10 +1,20 @@
 import openai
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+
+API_key = os.getenv("API_KEY")
+
+
+
+# Set up OpenAI API key
+openai.api_key = API_KEY
+
 
 message_log = []
 firstMessage = True
- 
-# Set up OpenAI API key
-openai.api_key = 'OpenAI API Key'
 
 # Function to send a message to the OpenAI chatbot model and return its response
 def send_message(message_log):
