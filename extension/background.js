@@ -1,6 +1,4 @@
 
-
-require('dotenv').config();
 // Add a listener for messages received by the background script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log("Received message in background script:", request);
@@ -68,6 +66,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         // Return true to indicate that the response will be sent asynchronously
         return true;
     }
+    else if (request.type === 'transcript') {
+
+        let transcriptData = response.transcript;
+        const sendTranscript = (transcriptData) => {
+            fetch('', {
+                method: 'Post',
+                headers: {
+                    'Content-Type': 'application/json'
+                }, 
+                body: JSON.stringify(transcript)
+            })
+            .then(response => response.json)
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
+        
+        }
+
+        return true;
+
+    }
+
+
+
+    
 });
+
+
 
 

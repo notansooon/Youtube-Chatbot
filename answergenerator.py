@@ -5,13 +5,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_key = os.getenv("API_KEY")
-
+API_KEY = os.getenv("API_KEY")
+print(API_KEY)
 
 
 # Set up OpenAI API key
 openai.api_key = API_KEY
-
 
 message_log = []
 firstMessage = True
@@ -19,8 +18,8 @@ firstMessage = True
 # Function to send a message to the OpenAI chatbot model and return its response
 def send_message(message_log):
     # Use OpenAI's ChatCompletion API to get the chatbot's response
-    response = openai.ChatCompletion.create(
-        model="gpt-4-turbo",  # The name of the OpenAI chatbot model to use
+    response = openai.chat.completions.create(
+        model="gpt-4o",  # The name of the OpenAI chatbot model to use
         messages=message_log,   # The conversation history up to this point, as a list of dictionaries
         max_tokens=50,        # The maximum number of tokens (words or subwords) in the generated response
         stop=None,              # The stopping sequence for the generated response, if any (not used here)

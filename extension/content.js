@@ -15,10 +15,14 @@ const init = function() {
         <div class="chatbox-messages" id="chatbox-messages" style="display: none;">
             <!-- Messages will appear here -->
         </div>
+
+        </div>
         <div class="chatbox-input" id="chatbox-input" style="display: none;">
             <input type="text" id="chat-input" placeholder="Type your question here..." />
             <button id="send-button" type="button">Send</button>
+            
         </div>
+        <button class='sendTranscript'> 
     `;
 
     // Append the chatbox to the body
@@ -52,11 +56,25 @@ const init = function() {
                 sendButton.style.backgroundColor = '#007aff';
                 sendButton.disabled = false;
             });
+
+            
         }
     };
 
+    const sendTranscript = (transcript) => {
+        chrome.runtime.sendMessage({type: 'transcript', transcript: transcript}, function(response) {
+            
+            console.log("This is the transcript", transcript);
+
+        });
+    }
+
+
+
+
     // Add event listener for the send button
     document.getElementById('send-button').addEventListener('click', sendMessage);
+    document.getElementById('sendTranscript').addEventListener('click', sendTranscript);
 
     // Add event listener for the enter key
     document.getElementById('chat-input').addEventListener('keypress', function(event) {
