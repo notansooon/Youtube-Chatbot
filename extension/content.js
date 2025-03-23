@@ -16,13 +16,13 @@ const init = function() {
             <!-- Messages will appear here -->
         </div>
 
-        </div>
+      
         <div class="chatbox-input" id="chatbox-input" style="display: none;">
             <input type="text" id="chat-input" placeholder="Type your question here..." />
             <button id="send-button" type="button">Send</button>
             
         </div>
-        <button class='sendTranscript'> 
+        <button id='sendTranscript' type="button"> Send Transcript </button> 
     `;
 
     // Append the chatbox to the body
@@ -61,7 +61,24 @@ const init = function() {
         }
     };
 
+    const extractTranscript = () => {
+        const transcript = document.querySelector('ytd-transcript-search-panel-renderer');
+
+
+        console.log(transcript)
+        
+
+        const transcriptElements = transcript.querySelectorAll('.cue-group');
+        let transcriptText = "";
+        transcriptElements.forEach(element => {
+            transcriptText += element.innerText + "\n";
+        });
+        
+        return transcriptText;
+    }
+
     const sendTranscript = (transcript) => {
+
         chrome.runtime.sendMessage({type: 'transcript', transcript: transcript}, function(response) {
             
             console.log("This is the transcript", transcript);
@@ -74,7 +91,10 @@ const init = function() {
 
     // Add event listener for the send button
     document.getElementById('send-button').addEventListener('click', sendMessage);
-    document.getElementById('sendTranscript').addEventListener('click', sendTranscript);
+    document.getElementById('sendTranscript').addEventListener('click', () => {
+        let script = extractTranscript();
+        sendTranscript(script);
+    });
 
     // Add event listener for the enter key
     document.getElementById('chat-input').addEventListener('keypress', function(event) {

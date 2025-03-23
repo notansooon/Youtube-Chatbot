@@ -23,6 +23,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             const fetchTranscript = async (url) => {
                 try {
                     const response = await fetch(`http://127.0.0.1:5000/transcript?url=${url}`);
+                    
+                    console.log(response);
+
                     if (!response.ok) {
                         throw new Error('Failed to fetch transcript');
                     }
